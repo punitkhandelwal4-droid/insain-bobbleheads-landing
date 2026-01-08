@@ -10,18 +10,18 @@ const About = () => {
     },
     {
       icon: Clock,
-      title: "2-3 Weeks Delivery",
-      description: "Quality takes time. Expect your masterpiece within 2-3 weeks of order."
+      title: "Fast Delivery",
+      description: "Quick turnaround without compromising on quality. Your masterpiece delivered on time."
     },
     {
       icon: Package,
       title: "Premium Packaging",
-      description: "Every piece arrives in beautiful gift-ready packaging."
+      description: "Every piece arrives in beautiful, secure packaging ready to gift."
     },
     {
       icon: Sparkles,
-      title: "Lifetime Quality",
-      description: "Made with durable materials that last for generations."
+      title: "Premium Quality",
+      description: "Made with high quality poly resin for exceptional durability and detail."
     }
   ];
 
