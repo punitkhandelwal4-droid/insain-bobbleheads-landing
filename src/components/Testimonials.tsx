@@ -4,37 +4,37 @@ import { Star, Quote } from "lucide-react";
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Priya Sharma",
+      name: "Michael Johnson",
       role: "Birthday Gift",
-      content: "Ordered a bobblehead for my husband's 40th birthday. He was absolutely blown away! The attention to detail is incredible—they even got his signature pose right!",
+      content: "Ordered a bobblehead for my wife's 40th birthday. She was absolutely blown away! The attention to detail is incredible—they even got her signature pose right!",
       rating: 5
     },
     {
-      name: "Rahul Mehta",
+      name: "Sarah Williams",
       role: "Corporate Gift",
       content: "We ordered 20 bobbleheads for our top performers. The team at InSain was so professional and delivered on time. Everyone loved their mini-me!",
       rating: 5
     },
     {
-      name: "Ananya Patel",
+      name: "David Chen",
       role: "Wedding Favor",
       content: "Our wedding guests couldn't stop talking about the couple bobbleheads we gave as favors. Such a unique and memorable touch to our special day!",
       rating: 5
     },
     {
-      name: "Vikram Singh",
+      name: "Emma Thompson",
       role: "Anniversary Gift",
-      content: "Surprised my parents with bobbleheads for their 25th anniversary. Mom cried happy tears! Worth every rupee spent. Highly recommend!",
+      content: "Surprised my parents with bobbleheads for their 25th anniversary. Mom cried happy tears! Worth every penny spent. Highly recommend!",
       rating: 5
     },
     {
-      name: "Sneha Reddy",
+      name: "James Rodriguez",
       role: "Farewell Gift",
       content: "Gave my boss a bobblehead on his farewell. The resemblance was uncanny! He said it's his favorite gift ever. Great communication throughout the process.",
       rating: 5
     },
     {
-      name: "Arjun Kapoor",
+      name: "Lisa Anderson",
       role: "Graduation Gift",
       content: "My daughter's graduation bobblehead in her cap and gown is now the centerpiece of our living room. Beautiful craftsmanship!",
       rating: 5
