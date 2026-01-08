@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import logoImage from "@/assets/hero-bobbleheads.png";
+
 const Header = () => {
   return <motion.header initial={{
     y: -20,
@@ -9,11 +11,10 @@ const Header = () => {
   }} transition={{
     duration: 0.5
   }} className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="font-brand text-2xl md:text-3xl text-primary">InSain</span>
-          <span className="text-sm md:text-base text-muted-foreground font-medium">Bobbleheads & More</span>
-        </div>
+      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+        <a href="#" className="flex items-center">
+          <img src={logoImage} alt="InSain Bobbleheads & More" className="h-12 md:h-14 w-auto" />
+        </a>
         <nav className="hidden md:flex items-center gap-8">
           <a href="#about" className="text-foreground/80 hover:text-primary transition-colors font-medium">About</a>
           <a href="#use-cases" className="text-foreground/80 hover:text-primary transition-colors font-medium">Use Cases</a>
