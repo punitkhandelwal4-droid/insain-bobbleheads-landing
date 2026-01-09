@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import heroBobbleheads from "@/assets/hero-bobbleheads.png";
+import bobbleheadsShowcase from "@/assets/bobbleheads-showcase.jpg";
 import { Star } from "lucide-react";
 const Hero = () => {
   return <section className="hero-gradient min-h-screen pt-24 pb-12 flex flex-col items-center justify-center overflow-hidden">
@@ -36,7 +36,7 @@ const Hero = () => {
         delay: 0.2
       }} className="relative mb-8">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none z-10" />
-          <img src={heroBobbleheads} alt="Collection of custom bobbleheads" className="w-full max-w-5xl mx-auto rounded-2xl card-shadow" />
+          <img src={bobbleheadsShowcase} alt="Collection of custom bobbleheads featuring doctor, traditional, business, casual styles" className="w-full max-w-5xl mx-auto rounded-2xl card-shadow" />
         </motion.div>
 
         <motion.div initial={{
