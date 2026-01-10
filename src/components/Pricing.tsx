@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Sparkles } from "lucide-react";
 const Pricing = () => {
-  const features = ["Custom sculpted from your photo", "Hand-painted with premium colors", "Premium gift-ready packaging", "Lifetime durability guarantee", "Free revisions before final", "Express delivery available"];
+  const features = ["Custom sculpted from your photo", "Hand-painted with premium colors", "Premium packaging for safety", "Lifetime durability guarantee", "Free revisions before final", "Express delivery available"];
   return <section id="pricing" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <motion.div initial={{
