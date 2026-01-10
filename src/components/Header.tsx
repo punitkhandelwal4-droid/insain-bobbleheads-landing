@@ -13,6 +13,7 @@ const Header = () => {
   }} className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 py-2 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2">
+          <img src={logoImage} alt="InSain" className="h-10 md:h-12 w-auto mix-blend-multiply" />
           <span className="text-foreground font-semibold text-lg md:text-xl">Bobbleheads & More</span>
         </a>
         <nav className="hidden md:flex items-center gap-8">
