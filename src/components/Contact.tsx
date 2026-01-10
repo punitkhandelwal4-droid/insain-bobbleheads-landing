@@ -5,12 +5,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
+
+// EmailJS Configuration - Replace these with your actual values from emailjs.com
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // e.g., "service_abc123"
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // e.g., "template_xyz789"
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // e.g., "abcDEF123xyz"
+
 const Contact = () => {
   const whatsappNumber = "+919079753204";
   const whatsappLink = `https://wa.me/${whatsappNumber.replace(/\+/g, '')}`;
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,24 +23,52 @@ const Contact = () => {
     requirements: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create WhatsApp message with form data
+    // Send email via EmailJS
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          to_email: "insainventures@gmail.com",
+          from_name: formData.name,
+          from_email: formData.email,
+          whatsapp_number: formData.whatsapp,
+          requirements: formData.requirements,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+      
+      toast({
+        title: "Email sent successfully!",
+        description: "We'll get back to you soon.",
+      });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Email notification sent",
+        description: "Redirecting to WhatsApp...",
+        variant: "destructive",
+      });
+    }
+
+    // Also redirect to WhatsApp
     const message = `Hi! I'm interested in a custom bobblehead.%0A%0A*Name:* ${encodeURIComponent(formData.name)}%0A*Email:* ${encodeURIComponent(formData.email)}%0A*WhatsApp:* ${encodeURIComponent(formData.whatsapp)}%0A*Requirements:* ${encodeURIComponent(formData.requirements)}`;
     const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/\+/g, '')}?text=${message}`;
     window.open(whatsappUrl, '_blank');
-    toast({
-      title: "Redirecting to WhatsApp",
-      description: "Complete your inquiry on WhatsApp to get a quick response!"
-    });
+
+    setFormData({ name: "", email: "", whatsapp: "", requirements: "" });
     setIsSubmitting(false);
   };
   return <section id="contact" className="py-20 bg-background">
