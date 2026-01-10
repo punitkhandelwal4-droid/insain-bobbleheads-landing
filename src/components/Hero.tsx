@@ -36,7 +36,7 @@ const Hero = () => {
         delay: 0.2
       }} className="relative mb-8">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none z-10" />
-          <img src={bobbleheadsShowcase} alt="Collection of custom bobbleheads featuring doctor, traditional, business, casual styles" className="w-full max-w-5xl mx-auto rounded-2xl card-shadow" />
+          <img alt="Collection of custom bobbleheads featuring doctor, traditional, business, casual styles" className="w-full max-w-5xl mx-auto rounded-2xl card-shadow" src="/lovable-uploads/dc3c4e1f-dc6c-4e03-8908-8c59dd706855.png" />
         </motion.div>
 
         <motion.div initial={{
