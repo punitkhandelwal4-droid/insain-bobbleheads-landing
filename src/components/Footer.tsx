@@ -1,16 +1,10 @@
-import insainLogo from "@/assets/insain-logo.png";
-
 const Footer = () => {
   return (
     <footer className="bg-primary py-12">
       <div className="container mx-auto px-4">
         <div className="text-center">
           <div className="mb-4">
-            <img 
-              src={insainLogo} 
-              alt="InSain Logo" 
-              className="h-12 mx-auto brightness-0 invert"
-            />
+            <span className="font-brand text-3xl text-primary-foreground">InSain</span>
             <span className="block text-primary-foreground/80 mt-1">Bobbleheads & More</span>
           </div>
           <p className="text-primary-foreground/80 italic mb-6">
