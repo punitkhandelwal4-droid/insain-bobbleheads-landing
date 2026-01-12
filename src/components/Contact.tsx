@@ -29,25 +29,34 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Submit to Netlify Forms
+    // Submit to Web3Forms (free email service)
     try {
-      const formDataToSend = new URLSearchParams();
-      formDataToSend.append("form-name", "contact");
-      formDataToSend.append("name", formData.name);
-      formDataToSend.append("email", formData.email);
-      formDataToSend.append("whatsapp", formData.whatsapp);
-      formDataToSend.append("requirements", formData.requirements);
-
-      await fetch("/", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formDataToSend.toString()
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "85834b69-6b3f-4aa5-a3a2-03a2bf0370ca",
+          name: formData.name,
+          email: formData.email,
+          whatsapp: formData.whatsapp,
+          requirements: formData.requirements,
+          subject: "New Bobblehead Inquiry from " + formData.name,
+        }),
       });
 
-      toast({
-        title: "Form submitted successfully!",
-        description: "We'll get back to you soon.",
-      });
+      const result = await response.json();
+      
+      if (result.success) {
+        toast({
+          title: "Form submitted successfully!",
+          description: "We'll get back to you soon.",
+        });
+      } else {
+        throw new Error("Submission failed");
+      }
     } catch (error) {
       console.error("Form submission error:", error);
       toast({
@@ -104,19 +113,9 @@ const Contact = () => {
             <div className="bg-card rounded-3xl p-8 border border-border card-shadow h-full">
               <h3 className="text-2xl font-bold text-foreground mb-6">Send Us Your Requirements</h3>
               <form 
-                name="contact" 
-                method="POST" 
-                data-netlify="true" 
-                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit} 
                 className="space-y-5"
               >
-                <input type="hidden" name="form-name" value="contact" />
-                <p className="hidden">
-                  <label>
-                    Don't fill this out: <input name="bot-field" />
-                  </label>
-                </p>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Your Name *
