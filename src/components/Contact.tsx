@@ -5,12 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import emailjs from '@emailjs/browser';
-
-// EmailJS Configuration - Replace these with your actual values from emailjs.com
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // e.g., "service_abc123"
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // e.g., "template_xyz789"
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // e.g., "abcDEF123xyz"
 
 const Contact = () => {
   const whatsappNumber = "+919079753204";
@@ -35,31 +29,30 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Send email via EmailJS
+    // Submit to Netlify Forms
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          to_email: "insainventures@gmail.com",
-          from_name: formData.name,
-          from_email: formData.email,
-          whatsapp_number: formData.whatsapp,
-          requirements: formData.requirements,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
-      
+      const formDataToSend = new URLSearchParams();
+      formDataToSend.append("form-name", "contact");
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("whatsapp", formData.whatsapp);
+      formDataToSend.append("requirements", formData.requirements);
+
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formDataToSend.toString()
+      });
+
       toast({
-        title: "Email sent successfully!",
+        title: "Form submitted successfully!",
         description: "We'll get back to you soon.",
       });
     } catch (error) {
-      console.error("EmailJS error:", error);
+      console.error("Form submission error:", error);
       toast({
-        title: "Email notification sent",
+        title: "Submission received",
         description: "Redirecting to WhatsApp...",
-        variant: "destructive",
       });
     }
 
@@ -71,19 +64,21 @@ const Contact = () => {
     setFormData({ name: "", email: "", whatsapp: "", requirements: "" });
     setIsSubmitting(false);
   };
-  return <section id="contact" className="py-20 bg-background">
+
+  return (
+    <section id="contact" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.6
-      }} className="text-center mb-12">
+          opacity: 0,
+          y: 20
+        }} whileInView={{
+          opacity: 1,
+          y: 0
+        }} viewport={{
+          once: true
+        }} transition={{
+          duration: 0.6
+        }} className="text-center mb-12">
           <span className="text-accent font-semibold text-sm uppercase tracking-wider">Get In Touch</span>
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mt-3 mb-5">
             Ready to Create Your <span className="text-primary">Bobblehead</span>?
@@ -96,19 +91,32 @@ const Contact = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Contact Form */}
           <motion.div initial={{
-          opacity: 0,
-          x: -20
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
+            opacity: 0,
+            x: -20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            duration: 0.6
+          }}>
             <div className="bg-card rounded-3xl p-8 border border-border card-shadow h-full">
               <h3 className="text-2xl font-bold text-foreground mb-6">Send Us Your Requirements</h3>
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true" 
+                netlify-honeypot="bot-field"
+                onSubmit={handleSubmit} 
+                className="space-y-5"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    Don't fill this out: <input name="bot-field" />
+                  </label>
+                </p>
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Your Name *
@@ -143,16 +151,16 @@ const Contact = () => {
 
           {/* WhatsApp & Social */}
           <motion.div initial={{
-          opacity: 0,
-          x: 20
-        }} whileInView={{
-          opacity: 1,
-          x: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6
-        }}>
+            opacity: 0,
+            x: 20
+          }} whileInView={{
+            opacity: 1,
+            x: 0
+          }} viewport={{
+            once: true
+          }} transition={{
+            duration: 0.6
+          }}>
             <div className="bg-card rounded-3xl p-8 border border-border card-shadow h-full flex flex-col">
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 mb-4">
@@ -189,6 +197,8 @@ const Contact = () => {
           </motion.div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Contact;
