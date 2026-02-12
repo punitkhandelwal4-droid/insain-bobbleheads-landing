@@ -4,37 +4,37 @@ import { Star, Quote } from "lucide-react";
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Michael Johnson",
+      name: "Rajesh Kumar",
       role: "Birthday Gift",
       content: "Ordered a bobblehead for my wife's 40th birthday. She was absolutely blown away! The attention to detail is incredible—they even got her signature pose right!",
       rating: 5
     },
     {
-      name: "Sarah Williams",
+      name: "Priya Singh",
       role: "Corporate Gift",
       content: "We ordered 20 bobbleheads for our top performers. The team at InSain was so professional and delivered on time. Everyone loved their mini-me!",
       rating: 5
     },
     {
-      name: "David Chen",
+      name: "Arun Patel",
       role: "Wedding Favor",
       content: "Our wedding guests couldn't stop talking about the couple bobbleheads we gave as favors. Such a unique and memorable touch to our special day!",
       rating: 5
     },
     {
-      name: "Emma Thompson",
+      name: "Anjali Sharma",
       role: "Anniversary Gift",
       content: "Surprised my parents with bobbleheads for their 25th anniversary. Mom cried happy tears! Worth every penny spent. Highly recommend!",
       rating: 5
     },
     {
-      name: "James Rodriguez",
+      name: "Vikram Desai",
       role: "Farewell Gift",
       content: "Gave my boss a bobblehead on his farewell. The resemblance was uncanny! He said it's his favorite gift ever. Great communication throughout the process.",
       rating: 5
     },
     {
-      name: "Lisa Anderson",
+      name: "Neha Gupta",
       role: "Graduation Gift",
       content: "My daughter's graduation bobblehead in her cap and gown is now the centerpiece of our living room. Beautiful craftsmanship!",
       rating: 5
