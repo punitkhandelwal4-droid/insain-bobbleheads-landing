@@ -5,6 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  whatsapp: z.string().trim().min(1, "WhatsApp number is required").max(20, "Invalid phone number").regex(/^\+?[0-9\s\-()]+$/, "Invalid phone number format"),
+  requirements: z.string().trim().min(1, "Requirements are required").max(2000, "Requirements must be less than 2000 characters"),
+});
 
 const Contact = () => {
   const whatsappNumber = "+919079753204";
@@ -17,16 +25,30 @@ const Contact = () => {
     requirements: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({ ...prev, [name]: "" }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const result = contactSchema.safeParse(formData);
+    if (!result.success) {
+      const errors: Record<string, string> = {};
+      result.error.errors.forEach(err => {
+        if (err.path[0]) errors[err.path[0] as string] = err.message;
+      });
+      setFieldErrors(errors);
+      return;
+    }
+    
+    setFieldErrors({});
     setIsSubmitting(true);
 
     // Submit to Web3Forms (free email service)
@@ -120,25 +142,29 @@ const Contact = () => {
                   <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
                     Your Name *
                   </label>
-                  <Input id="name" name="name" type="text" required placeholder="John Doe" value={formData.name} onChange={handleChange} className="rounded-xl" />
+                  <Input id="name" name="name" type="text" placeholder="John Doe" value={formData.name} onChange={handleChange} className="rounded-xl" maxLength={100} />
+                  {fieldErrors.name && <p className="text-destructive text-sm mt-1">{fieldErrors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
                     Email Address *
                   </label>
-                  <Input id="email" name="email" type="email" required placeholder="john@example.com" value={formData.email} onChange={handleChange} className="rounded-xl" />
+                  <Input id="email" name="email" type="email" placeholder="john@example.com" value={formData.email} onChange={handleChange} className="rounded-xl" maxLength={255} />
+                  {fieldErrors.email && <p className="text-destructive text-sm mt-1">{fieldErrors.email}</p>}
                 </div>
                 <div>
                   <label htmlFor="whatsapp" className="block text-sm font-medium text-foreground mb-2">
                     WhatsApp Number *
                   </label>
-                  <Input id="whatsapp" name="whatsapp" type="tel" required placeholder="+91 9876543210" value={formData.whatsapp} onChange={handleChange} className="rounded-xl" />
+                  <Input id="whatsapp" name="whatsapp" type="tel" placeholder="+91 9876543210" value={formData.whatsapp} onChange={handleChange} className="rounded-xl" maxLength={20} />
+                  {fieldErrors.whatsapp && <p className="text-destructive text-sm mt-1">{fieldErrors.whatsapp}</p>}
                 </div>
                 <div>
                   <label htmlFor="requirements" className="block text-sm font-medium text-foreground mb-2">
                     Your Requirements *
                   </label>
-                  <Textarea id="requirements" name="requirements" required placeholder="Tell us about your custom bobblehead idea - occasion, style, number of figures, etc." value={formData.requirements} onChange={handleChange} className="rounded-xl min-h-[120px]" />
+                  <Textarea id="requirements" name="requirements" placeholder="Tell us about your custom bobblehead idea - occasion, style, number of figures, etc." value={formData.requirements} onChange={handleChange} className="rounded-xl min-h-[120px]" maxLength={2000} />
+                  {fieldErrors.requirements && <p className="text-destructive text-sm mt-1">{fieldErrors.requirements}</p>}
                 </div>
                 <Button type="submit" disabled={isSubmitting} className="w-full btn-gold-gradient text-accent-foreground py-6 rounded-full font-semibold text-lg">
                   <Send className="w-5 h-5 mr-2" />
