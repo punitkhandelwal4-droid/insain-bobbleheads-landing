@@ -52,14 +52,14 @@ const Pricing = () => {
                   <span className="text-muted-foreground text-xl">Starting from</span>
                 </div>
                 <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-5xl md:text-6xl font-bold text-foreground">$20</span>
+                  <span className="text-5xl md:text-6xl font-bold text-foreground">₹500</span>
                   <span className="text-muted-foreground text-lg">/ piece</span>
                 </div>
                 <p className="text-muted-foreground mt-2">Price varies based on complexity</p>
               </div>
 
               <ul className="space-y-4 mb-8">
-                {features.map(feature => <li key={feature} className="flex items-center gap-3">
+                {features.map((feature) => <li key={feature} className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                       <Check className="w-4 h-4 text-primary" />
                     </div>
